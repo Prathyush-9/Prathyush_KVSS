@@ -138,7 +138,7 @@ function Pill({ children }) {
   return (
     <span style={{
       display: "inline-block",
-      border: "1px solid #e5e7eb",
+      border: "1px solid rgba(103, 150, 246, 1)",
       borderRadius: "999px",
       padding: "4px 10px",
       fontSize: 12,
@@ -153,11 +153,11 @@ function Pill({ children }) {
 function ProjectCard({ p }) {
   return (
     <div style={{
-      border: "1px solid #e5e7eb",
+      border: "1px solid #7ba4f5ff",
       borderRadius: 16,
       padding: 16,
       boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
-      background: "#fff"
+      background: "#9179f9ff"
     }}>
       <div style={{display: "flex", justifyContent: "space-between", gap: 12}}>
         <div>
@@ -203,49 +203,44 @@ export default function ProjectsPortfolio() {
   return (
     <div style={{maxWidth: 1000, margin: "0 auto"}}>
       {/* Top */}
-      <div style={{marginBottom: 12}}>
-        <h1 style={{margin: "16px 0"}}>Projects</h1>
-        <p style={{color:"#666"}}>Filter by category or search. Edit the <code>projectsData</code> array inside <code>ProjectsPortfolio.jsx</code> to update content.</p>
+      <div className="section">
+        <div className="card" style={{padding:20, marginBottom:12}}>
+          <h1 style={{margin: "0 0 6px 0"}}>Projects</h1>
+          <p className="subtle">Filter by category or search. Edit the data inside <code>ProjectsPortfolio.jsx</code> (or move to JSON later).</p>
       </div>
+      </div>
+
 
       {/* Toolbar */}
-      <div style={{display:"flex", gap:8, flexWrap:"wrap", alignItems:"center", marginBottom:12}}>
-        {CATEGORIES.map(c => (
-          <button key={c}
-            onClick={() => setActive(c)}
-            style={{
-              border:"1px solid #e5e7eb",
-              borderRadius: 999,
-              padding: "6px 12px",
-              background: active===c ? "#111" : "#f7f7f7",
-              color: active===c ? "#fff" : "#111",
-              cursor:"pointer"
-            }}>
-            {c}
-          </button>
-        ))}
-        <div style={{marginLeft:"auto", display:"flex", alignItems:"center", gap:8, border:"1px solid #e5e7eb", padding:"6px 10px", borderRadius:999}}>
-          <span>🔎</span>
-          <input
-            value={q}
-            onChange={e=>setQ(e.target.value)}
-            placeholder="Search titles, tags, tools…"
-            style={{border:"none", outline:"none", fontSize:14, width:220}}
-          />
-        </div>
+      <div className="toolbar">
+      {CATEGORIES.map(c => (
+        <button
+          key={c}
+          onClick={() => setActive(c)}
+          className={"tab" + (active===c ? " active" : "")}
+        >
+          {c}
+        </button>
+      ))}
+      <div className="search">
+        <span>🔎</span>
+        <input
+          value={q}
+          onChange={(e)=>setQ(e.target.value)}
+          placeholder="Search titles, tags, tools…"
+        />
       </div>
-
+    </div>
       {/* Grid */}
       <div style={{display:"grid", gridTemplateColumns:"1fr", gap:12}}>
         {/* two columns on wide screens */}
         <style>{`@media (min-width: 900px){ .grid2 { grid-template-columns: 1fr 1fr; } }`}</style>
-        <div className="grid2" style={{display:"grid", gridTemplateColumns:"1fr", gap:12}}>
-          {filtered.map((p, i) => <ProjectCard key={p.title + i} p={p} />)}
+        <div className="grid cols-2">
+          {filtered.map((p, i) => <ProjectCard key={p.title+i} p={p} />)}
         </div>
       </div>
-
       {filtered.length === 0 && (
-        <div style={{border:"1px dashed #e5e7eb", padding:24, textAlign:"center", borderRadius:12, color:"#666", marginTop:12}}>
+        <div style={{border:"1px dashed #115befff", padding:24, textAlign:"center", borderRadius:12, color:"#666", marginTop:12}}>
           No results. Try another category or clear your search.
         </div>
       )}
